@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Background Remover</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <!-- Header -->
+  <header>
+    <div class="container">
+      <h1>Background Remover</h1>
+      <nav>
+        <ul>
+          <li><a href="#home">Home</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Main Section -->
+  <main id="home">
+    <div class="hero">
+      <h2>Remove Background from Your Image</h2>
+      <p>Upload an image and remove its background instantly.</p>
+      <div class="upload-box">
+        <label for="file-upload" class="upload-label">Choose Image</label>
+        <input type="file" id="file-upload" class="upload-input" accept="image/*">
+        <button id="remove-btn" disabled>Remove Background</button>
+        <div class="progress-bar">
+          <div class="progress"></div>
+        </div>
+        <p id="status-msg">Upload an image to begin.</p>
+      </div>
+    </div>
+
+    <div id="result-container" class="result-container">
+      <h3>Result</h3>
+      <img id="result-image" src="" alt="Result Image">
+      <div id="color-options" class="color-options">
+        <button class="color-btn" style="background-color: #2e2e2e;"></button>
+        <button class="color-btn" style="background-color: #4a4a4a;"></button>
+        <button class="color-btn" style="background-color: #222222;"></button>
+        <button class="color-btn" style="background-color: #6a1b9a;"></button>
+        <button class="color-btn" style="background-color: #311b92;"></button>
+        <button class="color-btn" style="background-color: #009688;"></button>
+        <button class="color-btn" style="background-color: #0388fc;"></button>
+        <button class="color-btn" style="background-color: #03f0fc;"></button>
+        <button class="color-btn" style="background-color: #fc031c;"></button>
+        <button class="color-btn" style="background-color: #ffffff;"></button>
+         <a id="download-btn" class="rajan">Download Image</a>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2024 Background Remover. All rights reserved.</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
+
+
+<style>
+  /* General Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Arial', sans-serif;
+  background: #121212; /* Dark mysterious background */
+  color: #e6e6e6; /* Light text */
+  line-height: 1.6;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  flex-direction: column;
+  padding: 20px;
+}
+
+/* Header */
+header {
+  background: #0f3460; /* Darker blue */
+  color: #fff;
+  padding: 1rem 0;
+  width: 100%;
+}
+
+header .container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 90%;
+}
+
+header h1 {
+  font-size: 1.5rem;
+}
+
+header nav ul {
+  list-style: none;
+  display: flex;
+  gap: 1rem;
+}
+
+header nav ul li a {
+  color: #fff;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+header nav ul li a:hover {
+  color: #e94560; /* Mysterious red highlight */
+}
+
+/* Hero Section */
+.hero {
+  text-align: center;
+  padding: 5rem 1rem;
+}
+
+.hero h2 {
+  font-size: 2rem;
+  color: #e94560; /* Red to grab attention */
+}
+
+.hero p {
+  margin: 1rem 0 2rem;
+}
+
+.upload-box {
+  background: #16213e; /* Deep navy */
+  padding: 2rem;
+  border-radius: 10px;
+  max-width: 500px;
+  margin: 0 auto;
+  box-shadow: 0 0 15px rgba(233, 69, 96, 0.5); /* Red glow */
+}
+
+.upload-label {
+  display: block;
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+  color: #fff;
+  cursor: pointer;
+}
+
+.upload-input {
+  width: 100%;
+  padding: 0.7rem;
+  margin-bottom: 1rem;
+  border: none;
+  border-radius: 5px;
+  background: #0f3460;
+  color: #fff;
+}
+
+.upload-input:focus {
+  outline: 2px solid #e94560;
+}
+
+#remove-btn {
+  background: #e94560;
+  color: #fff;
+  padding: 0.7rem 1.5rem;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+#remove-btn:disabled {
+  background: #555;
+  cursor: not-allowed;
+}
+
+#remove-btn:hover:not(:disabled) {
+  background: #ba2d46;
+}
+
+/* Progress Bar */
+.progress-bar {
+  background: #444;
+  border-radius: 5px;
+  overflow: hidden;
+  height: 10px;
+  margin: 1rem 0;
+}
+
+.progress {
+  background: #e94560;
+  height: 100%;
+  width: 0%;
+  transition: width 0.5s ease;
+}
+
+#status-msg {
+  font-size: 0.9rem;
+  color: #aaa;
+  margin-top: 1rem;
+}
+
+/* Result Section */
+.result-container {
+  display: none;
+  text-align: center;
+  margin-top: 30px;
+}
+
+#result-image {
+  max-width: 100%;
+  margin-top: 20px;
+  border-radius: 10px;
+  border: 2px solid #444;
+}
+
+/* Color Options Section */
+.color-options {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.color-btn {
+  width: 50px;
+  height: 50px;
+  border: none;
+  margin: 5px;
+  cursor: pointer;
+  display: inline-block;
+  border-radius: 50%;
+  transition: transform 0.3s ease;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+}
+
+.color-btn:hover {
+  transform: scale(1.1);
+}
+
+/* Footer */
+footer {
+  text-align: center;
+  background: #0f3460;
+  color: #aaa;
+  padding: 1rem;
+}
+
+  .rajan {
+  padding: 0.6em 2em;
+  border: none;
+  outline: none;
+  color: rgb(255, 255, 255);
+  background: #111;
+  cursor: pointer;
+  position: relative;
+  z-index: 0;
+  border-radius: 10px;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+}
+
+.rajan:before {
+  content: "";
+  background: linear-gradient(
+    45deg,
+    #ff0000,
+    #ff7300,
+    #fffb00,
+    #48ff00,
+    #00ffd5,
+    #002bff,
+    #7a00ff,
+    #ff00c8,
+    #ff0000
+  );
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  background-size: 400%;
+  z-index: -1;
+  filter: blur(5px);
+  -webkit-filter: blur(5px);
+  width: calc(100% + 4px);
+  height: calc(100% + 4px);
+  animation: glowing-button-85 20s linear infinite;
+  transition: opacity 0.3s ease-in-out;
+  border-radius: 10px;
+}
+
+@keyframes glowing-button-85 {
+  0% {
+    background-position: 0 0;
+  }
+  50% {
+    background-position: 400% 0;
+  }
+  100% {
+    background-position: 0 0;
+  }
+}
+
+.rajan:after {
+  z-index: -1;
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: #222;
+  left: 0;
+  top: 0;
+  border-radius: 10px;
+
+  
+}
+</style>
+
+<script>
+  // Your Background Removal API key
+const API_KEY = 'eJM99ki3mj8xuWZ2cmiWsYJJ'; // Your provided API key
+
+// Select the file input and necessary elements
+const fileInput = document.getElementById('file-upload');
+const removeButton = document.getElementById('remove-btn');
+const resultImage = document.getElementById('result-image');
+const progressBar = document.querySelector('.progress');
+const statusMessage = document.getElementById('status-msg');
+const resultContainer = document.getElementById('result-container');
+const downloadButton = document.getElementById('download-btn');
+let currentBackgroundColor = 'transparent'; // Default background color
+
+// Enable the remove button when a file is selected
+fileInput.addEventListener('change', function () {
+  const file = fileInput.files[0];
+  if (file) {
+    removeButton.disabled = false;
+    statusMessage.innerText = "Ready to remove background.";
+  } else {
+    removeButton.disabled = true;
+    statusMessage.innerText = "Please select an image file.";
+  }
+});
+
+// Handle the background removal process
+removeButton.addEventListener('click', function () {
+  const file = fileInput.files[0];
+  if (file) {
+    // Display processing message and start the progress bar animation
+    statusMessage.innerText = "Processing image...";
+    progressBar.style.width = '0%';
+    progressBar.style.transition = 'none';
+
+    // Reset the progress bar
+    setTimeout(() => {
+      progressBar.style.transition = 'width 3s ease';
+      progressBar.style.width = '100%';
+    }, 100);
+
+    // Create form data to send the file to the API
+    const formData = new FormData();
+    formData.append('image_file', file);
+
+    // Send the image to the Background Removal API
+    fetch('https://api.remove.bg/v1.0/removebg', {
+      method: 'POST',
+      headers: {
+        'X-Api-Key': API_KEY,
+      },
+      body: formData,
+    })
+      .then(response => {
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        return response.blob();
+      })
+      .then(blob => {
+        // Create a URL for the returned image blob
+        const imageUrl = URL.createObjectURL(blob);
+        resultImage.src = imageUrl;
+        resultImage.style.backgroundColor = currentBackgroundColor; // Apply initial background color
+        resultContainer.style.display = 'block';
+        downloadButton.style.display = 'block';
+        statusMessage.innerText = "Background removed!";
+      })
+      .catch(error => {
+        console.error('Error:', error);
+        statusMessage.innerText = "Error: Could not process the image.";
+      });
+  } else {
+    statusMessage.innerText = "Error: No image selected.";
+  }
+});
+
+// Change background color of the result image
+const colorBtns = document.querySelectorAll('.color-btn');
+colorBtns.forEach(btn => {
+  btn.addEventListener('click', function () {
+    if (resultContainer.style.display === 'block') {
+      currentBackgroundColor = btn.style.backgroundColor; // Update the current background color
+      resultImage.style.backgroundColor = currentBackgroundColor;
+    }
+  });
+});
+
+// Download the image with the selected background color
+downloadButton.addEventListener('click', function () {
+  const canvas = document.createElement('canvas');
+  const ctx = canvas.getContext('2d');
+
+  // Set canvas dimensions to match the result image
+  canvas.width = resultImage.naturalWidth;
+  canvas.height = resultImage.naturalHeight;
+
+  // Fill the canvas with the selected background color
+  ctx.fillStyle = currentBackgroundColor;
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+  // Draw the result image onto the canvas
+  const img = new Image();
+  img.src = resultImage.src;
+
+  img.onload = function () {
+    ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+
+    // Trigger the download with the combined image
+    const finalImage = canvas.toDataURL('image/png');
+    const downloadLink = document.createElement('a');
+    downloadLink.href = finalImage;
+    downloadLink.download = 'customized-image.png';
+    downloadLink.click();
+  };
+});
+
+</script>
